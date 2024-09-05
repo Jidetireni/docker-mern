@@ -1,0 +1,36 @@
+services:
+  frontend:
+    build: 
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - mern
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ~/mongodb-data:/data/db
+    networks:
+      - mern
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "5050:5050"
+    networks:
+      - mern
+    restart: always
+
+networks:
+  mern:
+
+volumes:
+  mongodb-data:
